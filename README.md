@@ -11,3 +11,6 @@ I chose to use `yarn` instead of `npm`, so you might need to install it too with
 Once that is done, run `yarn` to install the project's dependencies (effectively only TypeScript and d3).
 
 Then, run `yarn dev` and the project should become available via [localhost on port 5173](http://localhost:5173/).
+
+## Branches
+I've organized the code into separate, numbered branches. The numbers correspond with the chapter numbers in the Udemy course (assuming the course instructor doesn't modify them later).
