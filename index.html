@@ -11,12 +11,9 @@
     <script type="module" src="/src/main.ts"></script>
     <svg width="300" height="200">
       <!-- polygons are specified with the points property, passing a sequence of x,y coordinate pairs separated by ' ' -->
-      <!-- They are filled -->
-      <polygon points="0,180 150, 0, 280,180" />
-    </svg>
-    <svg width="300" height="200">
-      <!-- the following draws a star -->
-      <polygon points="100,10 40,198 190,78 10,78 160,198" />
+      <!-- By default, they have no stroke and are filled (depending on first and last coordinate apparently - instructor doesn't explain more)-->
+      <!-- therefore, we need to set stroke to some color and add fill: none in CSS -->
+      <polyline points="0,3 30,3 30,30 60,30 60,60 90,60 90,90 120,90" />
     </svg>
   </body>
 </html>

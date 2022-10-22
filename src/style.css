@@ -15,3 +15,8 @@ body {
   margin: 0;
   padding: 0;
 }
+
+polyline {
+  fill: none;
+  stroke: red;
+}
