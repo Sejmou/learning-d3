@@ -10,8 +10,9 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <svg width="300" height="200">
-      <!-- rx and ry set ellipse radius -->
-      <ellipse cx="100" cy="50" rx="100" ry="50" />
+      <!-- per default, lines are invisible, as they are "unidirectional" and therefore don't have an area (which would then implicitly use default fill color of black) -->
+      <!-- we need to set the stroke property in the CSS -->
+      <line x1="5" y1="5" x2="100" y2="100" />
     </svg>
   </body>
 </html>

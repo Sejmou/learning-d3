@@ -15,3 +15,9 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* without this, lines are invisible */
+line {
+  stroke: orange;
+  stroke-width: 3px;
+}
