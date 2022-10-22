@@ -1,2 +1,17 @@
 /* As this file gets imported in main.ts and main.ts is subsequently imported in index.html, we can use this file to define styles */
 /* In the Udemy course, the CSS file is imported in index.html directly, which has the same end result */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

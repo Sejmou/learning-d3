@@ -4,23 +4,14 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Learning D3.js</title>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <svg width="300" height="200">
-      <rect width="200" height="100"></rect>
+      <!-- rx and ry set ellipse radius -->
+      <ellipse cx="100" cy="50" rx="100" ry="50" />
     </svg>
-    <!-- This SVG will be positioned next to the existing one if there is enough horizontal space, else below-->
-    <svg>
-      <rect width="100" height="50" x="50" y="50" />
-    </svg>
-    <div>
-      <!-- as divs are block level elements, by default wrapping an svg tag with -->
-      <svg>
-        <rect width="50" height="50" x="50" y="50" />
-      </svg>
-    </div>
   </body>
 </html>
