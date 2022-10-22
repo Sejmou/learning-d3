@@ -10,9 +10,13 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <svg width="300" height="200">
-      <!-- per default, lines are invisible, as they are "unidirectional" and therefore don't have an area (which would then implicitly use default fill color of black) -->
-      <!-- we need to set the stroke property in the CSS -->
-      <line x1="5" y1="5" x2="100" y2="100" />
+      <!-- polygons are specified with the points property, passing a sequence of x,y coordinate pairs separated by ' ' -->
+      <!-- They are filled -->
+      <polygon points="0,180 150, 0, 280,180" />
+    </svg>
+    <svg width="300" height="200">
+      <!-- the following draws a star -->
+      <polygon points="100,10 40,198 190,78 10,78 160,198" />
     </svg>
   </body>
 </html>
