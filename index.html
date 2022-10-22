@@ -10,14 +10,24 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <svg width="300" height="200">
-      <!-- x and y of text element define text baseline coordinates (therefore, per default text is basically invisible)-->
-      <!-- we set this to 16px here, because that is traditionally the default font-size in HTML (applies both for HTML and SVG!)-->
-      <text x="8" y="16">This is an SVG text</text>
-      <text x="16" y="40">More text</text>
-      <!-- unlike in HTML, text cannot overflow outside of an SVG -->
-      <text x="32" y="56">
-        This text will not overflow but rather be cut off hahaha
-      </text>
+      <!-- 
+      Paths are the most complex element in SVG.
+      The following commands are available for path data:
+      M = moveto
+      L = lineto
+      H = horizontal lineto
+      V = vertical lineto
+      C = curveto
+      S = smooth curveto
+      Q = quadratic Bézier curve
+      T = smooth quadratic Bézier curveto
+      A = elliptical Arc
+      Z = closepath
+
+      Note: All of the commands above can also be expressed with lowercase letters.
+      Capital letters means absolutely positioned, lowercase means relatively positioned.
+      -->
+      <path d="M150,0 C30,90 25,10 50,10" fill="none" stroke="red" />
     </svg>
   </body>
 </html>
