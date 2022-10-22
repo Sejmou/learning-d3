@@ -9,10 +9,18 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
-    <svg height="400" width="400">
-      <!-- Per default, SVG elements are located at (0, 0). For circles, the coordinates refer to the circles center -->
-      <!-- We can use cx and cy to define a new location for the circle, r sets its radius -->
-      <circle cx="150" cy="150" r="100"></circle>
+    <svg width="300" height="200">
+      <rect width="200" height="100"></rect>
     </svg>
+    <!-- This SVG will be positioned next to the existing one if there is enough horizontal space, else below-->
+    <svg>
+      <rect width="100" height="50" x="50" y="50" />
+    </svg>
+    <div>
+      <!-- as divs are block level elements, by default wrapping an svg tag with -->
+      <svg>
+        <rect width="50" height="50" x="50" y="50" />
+      </svg>
+    </div>
   </body>
 </html>
