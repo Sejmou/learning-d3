@@ -10,10 +10,14 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <svg width="300" height="200">
-      <!-- polygons are specified with the points property, passing a sequence of x,y coordinate pairs separated by ' ' -->
-      <!-- By default, they have no stroke and are filled (depending on first and last coordinate apparently - instructor doesn't explain more)-->
-      <!-- therefore, we need to set stroke to some color and add fill: none in CSS -->
-      <polyline points="0,3 30,3 30,30 60,30 60,60 90,60 90,90 120,90" />
+      <!-- x and y of text element define text baseline coordinates (therefore, per default text is basically invisible)-->
+      <!-- we set this to 16px here, because that is traditionally the default font-size in HTML (applies both for HTML and SVG!)-->
+      <text x="8" y="16">This is an SVG text</text>
+      <text x="16" y="40">More text</text>
+      <!-- unlike in HTML, text cannot overflow outside of an SVG -->
+      <text x="32" y="56">
+        This text will not overflow but rather be cut off hahaha
+      </text>
     </svg>
   </body>
 </html>
