@@ -6,12 +6,17 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    g {
-      fill: red
+    svg {
+      border: 1px solid red;
     }
 
-    .example-rect {
-      fill: green
+    #smiley {
+      fill: yellow;
+      stroke: black;
+      stroke-width: 8px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      pointer-events: none;
     }
   </style>
   <title>Learning D3.js</title>
@@ -20,12 +25,189 @@
 <body>
   <div id="app"></div>
   <script type="module" src="/src/main.ts"></script>
-  <svg width='300' height='200'>
-    <!-- group element "g" is analogous to div in HTML -->
-    <g>
-      <rect width='150' height='50' x='25' y='25'></rect>
-      <rect width='100' height='70' x='50' y='50' class="example-rect"></rect>
-    </g>
+  <!-- The viewBox attribute allows us to change several aspects of how an SVG element will be displayed in the browser-->
+  <!-- For details see https://css-tricks.com/scale-svg/#aa-the-viewbox-attribute or https://youtu.be/TBYJ2V1jAlA  -->
+  <!-- the first two values move the origin of the "SVG coordinate system"; they define where min-x and min-y are -->
+  <!-- the last two attributes allow us to modify how things scale and what the aspect ratio of the SVG is -->
+  <!-- However, all of that sh*t is ultra confusing if aspect ratios differ -> preserveAspectRatio becomes important then
+    there's a demo on MDN (https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio) but I still don't really get how this works in general -->
+  <!-- if we don't use units for positioning stuff in an SVG, we are actually using "user-coordinates" -->
+  <!-- the actual "HTML (px)" position of user coordinates 
+    (x, y) is then
+    (x * (SVG px width / viewBox width), y * SVG px height / viewBox height) -->
+  <!-- viewBox becomes especially weird if viewBox and svg aspect ratios (i.e. viewBox width/viewBox height and svg width / svg height) don't match -->
+  <div>
+    <h1>Understanding SVG viewBox</h1>
+    <h2>Matching aspect ratios between svg and viewBox</h2>
+    <svg width="100" height="100">
+      <circle cx="50" cy="50" r="50" />
+    </svg>
+    <!-- if px size of svg element and width of height of viewBox match, nothing changes -->
+    <svg width="100" height="100" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="50" />
+    </svg>
+    <!-- if width/height of viewBox are double the width/height of the svg, this is the same as setting zoom to 50% -->
+    <svg width="100" height="100" viewBox="0 0 200 200">
+      <circle cx="50" cy="50" r="50" />
+    </svg>
+    <!-- if width/height of viewBox are half the width/height of the svg, this is the same as setting zoom to 200% -->
+    <svg width="100" height="100" viewBox="0 0 50 50">
+      <circle cx="50" cy="50" r="50" />
+    </svg>
+    <!-- then, doubling viewBox width and height is the same as zooming out by 50% -->
+    <svg width="100" height="100" viewBox="0 0 200 200">
+      <circle cx="50" cy="50" r="50" />
+    </svg>
+  </div>
+  <div>
+    <h2>x-min and y-min</h2>
+    <svg width="100" height="100" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="50" />
+    </svg>
+    <svg width="100" height="100" viewBox="-50 0 100 100">
+      <circle cx="50" cy="50" r="50" />
+    </svg>
+    <svg width="100" height="100" viewBox="0 -50 100 100">
+      <circle cx="50" cy="50" r="50" />
+    </svg>
+    <svg width="100" height="100" viewBox="-50 -50 100 100">
+      <circle cx="50" cy="50" r="50" />
+    </svg>
+    <svg width="100" height="100" viewBox="50 50 100 100">
+      <circle cx="50" cy="50" r="50" />
+    </svg>
+  </div>
+  <h2>svg and viewBox aspect ratios not matching (don't get how that works)</h2>
+  <h3>default (preserveAspectRatio="xMidYMid meet")</h3>
+  <svg width="100" height="100" viewBox="0 0 160 90">
+    <rect x="5" y="5" width="50" height="50" />
+  </svg>
+  <svg width="100" height="100" viewBox="0 0 45 80">
+    <rect x="5" y="5" width="50" height="50" />
+  </svg>
+  <svg width="100" height="100" viewBox="0 0 90 160">
+    <rect x="5" y="5" width="50" height="50" />
+  </svg>
+  <svg width="100" height="100" viewBox="0 0 80 45">
+    <rect x="5" y="5" width="50" height="50" />
+  </svg>
+  <h3>preserveAspectRatio="none"</h3>
+  <svg preserveAspectRatio="none" width="100" height="100" viewBox="0 0 160 90">
+    <rect x="25" y="25" width="50" height="50" />
+  </svg>
+  <svg preserveAspectRatio="none" width="100" height="100" viewBox="0 0 45 80">
+    <rect x="25" y="25" width="50" height="50" />
+  </svg>
+  <svg preserveAspectRatio="none" width="100" height="100" viewBox="0 0 90 160">
+    <rect x="25" y="25" width="50" height="50" />
+  </svg>
+  <svg preserveAspectRatio="none" width="100" height="100" viewBox="0 0 80 45">
+    <rect x="25" y="25" width="50" height="50" />
+  </svg>
+
+  <h2>preserveAspectRatio example from <a
+      href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio">MDN</a></h2>
+  <svg viewBox="-1 -1 162 92" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <path id="smiley"
+        d="M50,10 A40,40,1,1,1,50,90 A40,40,1,1,1,50,10 M30,40 Q36,35,42,40 M58,40 Q64,35,70,40 M30,60 Q50,75,70,60 Q50,75,30,60" />
+    </defs>
+
+    <!-- (width>height) meet -->
+    <rect x="0" y="0" width="20" height="10">
+      <title>xMidYMid meet</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="20" height="10" preserveAspectRatio="xMidYMid meet" x="0" y="0">
+      <use href="#smiley" />
+    </svg>
+
+    <rect x="25" y="0" width="20" height="10">
+      <title>xMinYMid meet</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="20" height="10" preserveAspectRatio="xMinYMid meet" x="25" y="0">
+      <use href="#smiley" />
+    </svg>
+
+    <rect x="50" y="0" width="20" height="10">
+      <title>xMaxYMid meet</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="20" height="10" preserveAspectRatio="xMaxYMid meet" x="50" y="0">
+      <use href="#smiley" />
+    </svg>
+
+    <!-- (width>height) slice -->
+    <rect x="0" y="15" width="20" height="10">
+      <title>xMidYMin slice</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="20" height="10" preserveAspectRatio="xMidYMin slice" x="0" y="15">
+      <use href="#smiley" />
+    </svg>
+
+    <rect x="25" y="15" width="20" height="10">
+      <title>xMidYMid slice</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="20" height="10" preserveAspectRatio="xMidYMid slice" x="25" y="15">
+      <use href="#smiley" />
+    </svg>
+
+    <rect x="50" y="15" width="20" height="10">
+      <title>xMidYMax slice</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="20" height="10" preserveAspectRatio="xMidYMax slice" x="50" y="15">
+      <use href="#smiley" />
+    </svg>
+
+    <!-- (width<height) meet -->
+    <rect x="75" y="0" width="10" height="25">
+      <title>xMidYMin meet</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="10" height="25" preserveAspectRatio="xMidYMin meet" x="75" y="0">
+      <use href="#smiley" />
+    </svg>
+
+    <rect x="90" y="0" width="10" height="25">
+      <title>xMidYMid meet</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="10" height="25" preserveAspectRatio="xMidYMid meet" x="90" y="0">
+      <use href="#smiley" />
+    </svg>
+
+    <rect x="105" y="0" width="10" height="25">
+      <title>xMidYMax meet</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="10" height="25" preserveAspectRatio="xMidYMax meet" x="105" y="0">
+      <use href="#smiley" />
+    </svg>
+
+    <!-- (width<height) slice -->
+    <rect x="120" y="0" width="10" height="25">
+      <title>xMinYMid slice</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="10" height="25" preserveAspectRatio="xMinYMid slice" x="120" y="0">
+      <use href="#smiley" />
+    </svg>
+
+    <rect x="135" y="0" width="10" height="25">
+      <title>xMidYMid slice</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="10" height="25" preserveAspectRatio="xMidYMid slice" x="135" y="0">
+      <use href="#smiley" />
+    </svg>
+
+    <rect x="150" y="0" width="10" height="25">
+      <title>xMaxYMid slice</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="10" height="25" preserveAspectRatio="xMaxYMid slice" x="150" y="0">
+      <use href="#smiley" />
+    </svg>
+
+    <!-- none -->
+    <rect x="0" y="30" width="160" height="60">
+      <title>none</title>
+    </rect>
+    <svg viewBox="0 0 100 100" width="160" height="60" preserveAspectRatio="none" x="0" y="30">
+      <use href="#smiley" />
+    </svg>
   </svg>
 </body>
 
