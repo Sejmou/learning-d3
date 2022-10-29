@@ -4,30 +4,21 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      rect {
+        /* we can do several things in transform */
+        transform: rotate(10deg) translate(80px, -20px) skewX(-45deg) scale(0.5)
+      }
+    </style>
     <title>Learning D3.js</title>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
-    <svg width="300" height="200">
-      <!-- 
-      Paths are the most complex element in SVG.
-      The following commands are available for path data:
-      M = moveto
-      L = lineto
-      H = horizontal lineto
-      V = vertical lineto
-      C = curveto
-      S = smooth curveto
-      Q = quadratic Bézier curve
-      T = smooth quadratic Bézier curveto
-      A = elliptical Arc
-      Z = closepath
-
-      Note: All of the commands above can also be expressed with lowercase letters.
-      Capital letters means absolutely positioned, lowercase means relatively positioned.
-      -->
-      <path d="M150,0 C30,90 25,10 50,10" fill="none" stroke="red" />
-    </svg>
-  </body>
+    <body>
+      <svg width="300" height="200">
+        <rect width='50' height='100' x='50' y="25" />
+      </svg>
+    </body>
 </html>
+
